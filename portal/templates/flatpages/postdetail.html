@@ -1,0 +1,30 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+<!-- Название у нас будет product -->
+{% block title %}
+Products
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<table>
+    <thead>
+        <th>
+            <h1 align="center">{{ postdetail.title|censor }}</h1>
+        </th>
+    </thead>
+    <tbody align="left">
+        <td>
+        <p>
+        {{ postdetail.text|censor }}
+        </td>
+    </tbody>
+    <tfoot>
+        <td align="right">
+            <strong>Дата загрузки: {{ postdetail.dateCreate|date:'d M Y H : i' }}</strong>
+        </td>
+    </tfoot>
+</table>
+{% endblock content %}
