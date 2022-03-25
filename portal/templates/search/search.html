@@ -1,0 +1,9 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'news/postlist.html' %}
+
+{% block form_search %}
+    <form method="GET">
+    {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+    <input type="submit" value="Найти">
+    </form>
+{% endblock form_search %}

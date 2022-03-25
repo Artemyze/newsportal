@@ -1,0 +1,15 @@
+{% extends 'news/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Добавление новости
+{% endblock title %}
+
+{% block content %}
+<h3>Введите новость</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }} <!-- Теперь нам нужна только готовая форма и кнопка -->
+    <input type="submit" value="Добавить/Изменить новость">
+</form>
+{% endblock content %}

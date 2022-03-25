@@ -1,0 +1,48 @@
+{% extends 'news/default.html' %}
+
+{% block title %} Product list {% endblock title %}
+
+{% block content %}
+<h2>Вы действительно хотите удалить данный пост?</h2>
+<table class="table table-hover">
+
+            <thead>
+            <tr>
+                <th>
+                    Фамилия автора
+                </th>
+                <th>
+                    Заголовок статьи
+                </th>
+                <th>
+                    Дата публикации
+                </th>
+                <th>
+                    Текст статьи
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+                    <tr>
+                        <th>
+                            {{ post.author.author_user.last_name }}
+                        </th>
+                        <th>
+                            <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                        </th>
+                        <th>
+                            {{ post.dateCreate }}
+                        </th>
+                        <th>
+                            {{ post.text|truncatechars:50 }}
+                        </th>
+                    </tr>
+            </tbody>
+
+</table>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
+{% endblock content %}

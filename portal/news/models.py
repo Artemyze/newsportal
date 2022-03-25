@@ -28,6 +28,9 @@ class Author(models.Model):
 class Category(models.Model):
     cat_model = models.CharField(max_length=64, unique=True)
 
+    def __str__(self):
+        return f'{ self.cat_model }'
+
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -38,6 +41,9 @@ class Post(models.Model):
 
     text = models.TextField()
     rating = models.IntegerField(default=0)
+
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
 
     def __str__(self):
         return f'{self.author.objects.all().User.get_username()}{self.title}{self.dateCreate}'

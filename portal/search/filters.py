@@ -1,5 +1,5 @@
 from django_filters import FilterSet
-from .models import Post
+from news.models import Post
 
 
 class PostFilter(FilterSet):
@@ -8,5 +8,5 @@ class PostFilter(FilterSet):
         fields = {
             'dateCreate': ['gt'],
             'title': ['icontains'],
-            'author': ['contains']
+            'author__author_user__last_name': ['icontains']
         }
