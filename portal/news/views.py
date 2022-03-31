@@ -1,12 +1,18 @@
 from django.shortcuts import render
 from .forms import PostForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView  # импортируем уже знакомый generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView  # импортируем уже знакомый generic
 from django.core.paginator import Paginator  # импортируем класс, позволяющий удобно осуществлять постраничный вывод
 
 from .models import Post
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
-class PostList(ListView):
+class ProtectedView(LoginRequiredMixin, TemplateView):
+    template_name = 'login/index.html'
+
+
+class PostList(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'news/postlist.html'
     context_object_name = 'postlist'
@@ -21,21 +27,24 @@ class PostDetail(DetailView):
     context_object_name = 'postdetail'
 
 
-class PostCreate(CreateView):
+class PostCreate(PermissionRequiredMixin, CreateView):
     template_name = 'news/post_create.html'
     form_class = PostForm
+    permission_required = ('news.add_post',)
 
 
-class PostUpdate(UpdateView):
+class PostUpdate(PermissionRequiredMixin, UpdateView):
     template_name = 'news/post_create.html'
     form_class = PostForm
+    permission_required = ('news.change_post',)
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
 
 
-class PostDelete(DeleteView):
+class PostDelete(PermissionRequiredMixin, DeleteView):
     template_name = 'news/post_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+    permission_required = ('news.delete_post',)
