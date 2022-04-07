@@ -14,5 +14,5 @@ urlpatterns = [
     path('signup/',
          BaseRegisterView.as_view(template_name='login/signup.html'),
          name='logout'),
-    path('upgrade/', upgrade_me, name='upgrade')
+    path('upgrade/', upgrade_me, name='upgrade'),
 ]

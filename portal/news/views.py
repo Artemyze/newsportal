@@ -1,10 +1,12 @@
-from django.shortcuts import render
-from .forms import PostForm
+from django.shortcuts import render, redirect
+from django.views import View
+
+from .forms import PostForm, SubForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView  # импортируем уже знакомый generic
 from django.core.paginator import Paginator  # импортируем класс, позволяющий удобно осуществлять постраничный вывод
 
-from .models import Post
+from .models import Post, Subscriber
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
@@ -48,3 +50,10 @@ class PostDelete(PermissionRequiredMixin, DeleteView):
     queryset = Post.objects.all()
     success_url = '/news/'
     permission_required = ('news.delete_post',)
+
+
+class Subscribe(UpdateView):
+    pass
+
+
+

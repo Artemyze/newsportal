@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User, Group
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from .models import BaseRegisterForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -21,6 +21,7 @@ class IndexView(TemplateView):
         return context
 
 
+
 @login_required
 def upgrade_me(request):
     user = request.user
@@ -28,3 +29,4 @@ def upgrade_me(request):
     if not request.user.groups.filter(name='author').exists():
         author_group.user_set.add(user)
     return redirect('/')
+

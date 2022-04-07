@@ -1,0 +1,16 @@
+{% extends 'news/default.html' %}
+
+{% block title %}
+Добавление рассылки
+{% endblock title %}
+
+{% block content %}
+<h3>Введите рассылку</h3>
+<form method="POST">
+    {% csrf_token %}
+
+    <label for="category">Price</label>
+    <input name="category">
+    <input type="submit" value="Добавить/Изменить рассылку">
+</form>
+{% endblock content %}

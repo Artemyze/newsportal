@@ -5,6 +5,7 @@ from django.db.models import Sum
 from .models_resources.source import CatSource
 
 
+
 class Author(models.Model):
     author_user = models.OneToOneField(User, on_delete=models.CASCADE)
     author_rating = models.IntegerField(default=1)
@@ -30,6 +31,11 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{ self.cat_model }'
+
+
+class Subscriber(models.Model):
+    categorySub = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
+    userSub = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
 class Post(models.Model):
